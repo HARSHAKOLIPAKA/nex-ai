@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="logo">
+            <i class="fa-solid fa-robot"></i> Harsha's AI
+        </div>
+        
+        <h2>{{ 'Login' if request.endpoint == 'login' else 'Create Account' }}</h2>
+        <p class="subtitle">Join Harsha's AI Assistant</p>
+        
+        {% if error %}
+        <div class="error-msg">{{ error }}</div>
+        {% endif %}
+        
+        <form method="POST">
+            {% if request.endpoint == 'register' %}
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" name="full_name" placeholder="Full Name" required>
+            </div>
+            
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            {% endif %}
+            
+            <div class="input-group">
+                <i class="fa-solid fa-at"></i>
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            
+            {% if request.endpoint == 'register' %}
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            </div>
+            {% endif %}
+            
+            <button type="submit" class="btn-primary">
+                {{ 'Login' if request.endpoint == 'login' else 'Create Account' }}
+            </button>
+        </form>
+        
+        <p class="switch-link">
+            {% if request.endpoint == 'login' %}
+            Don't have an account? <a href="{{ url_for('register') }}">Sign Up</a>
+            {% else %}
+            Already have an account? <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}
